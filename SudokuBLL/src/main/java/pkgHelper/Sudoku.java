@@ -24,7 +24,8 @@ public class Sudoku extends LatinSquare{
 		int[] answer = new int[iSize];
 		int[][] LS= super.getLatinSquare();
 		int lowRow = r-r%iSqrtSize;
-		int lowCol = r % iSqrtSize * r;
+		int lowCol = r % iSqrtSize * iSqrtSize;
+		System.out.println("Starting col = " +lowCol);
 		int i = 0;
 		for(int j = lowRow;j<lowRow+iSqrtSize;j++) {
 			for(int k = lowCol;k<lowCol+iSqrtSize;k++) {
@@ -32,14 +33,45 @@ public class Sudoku extends LatinSquare{
 				i++;
 			}
 		
-		}
+		}System.out.println("the array is " +Arrays.toString(answer));
 		return answer;
 		}
 	public int[] getRegion(int row, int col) {
 		int region = 0;
-		int[] answer = new int[iSize];
-		
-		return answer;
+		boolean c = true;
+		boolean r = false;
+		int x = 0;
+		int y = 0;
+		int low = 0;
+		int high = iSqrtSize;
+		while(c) {
+			if(col>=low && col<high) {
+				System.out.println("Column set Found x= " +x);
+				low = 0;
+				high  = iSqrtSize;
+				while(true) {
+					if(row>=low && row<high) {
+						region = x +y;
+						c = false;
+						r = true;
+						break;
+					}
+					y++;
+					low+=iSqrtSize;
+					high+=iSqrtSize;
+					
+				}
+			}
+			if(r) {
+				break;
+			}
+			System.out.println("End of first while: X = "+x+ " low = "+low+" high = "+high);
+			x++;
+			low+=iSqrtSize;
+			high+=iSqrtSize;
+		}
+		System.out.println("the region is "+region);
+		return getRegion(region);
 		
 	}
 	
