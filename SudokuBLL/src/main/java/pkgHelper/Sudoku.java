@@ -1,5 +1,6 @@
 package pkgHelper;
 import java.math.*;
+import java.util.Arrays;
 public class Sudoku extends LatinSquare{
 	private int iSize;
 	private int iSqrtSize;
@@ -16,8 +17,30 @@ public class Sudoku extends LatinSquare{
 		this.iSize = puzzle.length;
 		this.iSqrtSize = (int) Math.sqrt(iSize);
 	}
-	protected int[][] getPuzzle() {
+	public int[][] getPuzzle() {
 		return super.getLatinSquare();
+	}
+	public int[] getRegion(int r) {
+		int[] answer = new int[iSize];
+		int[][] LS= super.getLatinSquare();
+		int lowRow = r-r%iSqrtSize;
+		int lowCol = r % iSqrtSize * r;
+		int i = 0;
+		for(int j = lowRow;j<lowRow+iSqrtSize;j++) {
+			for(int k = lowCol;k<lowCol+iSqrtSize;k++) {
+				answer[i]= LS[j][k];
+				i++;
+			}
+		
+		}
+		return answer;
+		}
+	public int[] getRegion(int row, int col) {
+		int region = 0;
+		int[] answer = new int[iSize];
+		
+		return answer;
+		
 	}
 	
 }
