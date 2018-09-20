@@ -51,7 +51,7 @@ public class Sudoku extends LatinSquare{
 				high  = iSqrtSize;
 				while(true) {
 					if(row>=low && row<high) {
-						region = x +y;
+						region = x +y*iSqrtSize;
 						c = false;
 						r = true;
 						break;
