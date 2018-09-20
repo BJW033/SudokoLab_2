@@ -7,7 +7,7 @@ import org.junit.Test;
 public class SudokoTest {
 
 	@Test
-	public void GetRegion() {
+	public void GetRegion() throws Exception{
 		int[][] myArray = {{1,2,3,4},
 				{2,3,4,1},{3,4,1,2},{4,1,2,3}};
 		Sudoku test = new Sudoku(myArray);
@@ -17,7 +17,7 @@ public class SudokoTest {
 		assertArrayEquals(answer1,test.getRegion(1));
 	}
 	@Test
-	public void GetRegionTest() {
+	public void GetRegionTest() throws Exception{
 		int[][] myArray = {{1,2,3,4,5,6,7,8,9},
 				{1,2,3,4,5,6,7,8,9},{1,2,3,4,5,6,7,8,9},
 				{1,2,3,4,5,6,7,8,9},{1,2,3,4,5,6,7,8,9},

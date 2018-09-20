@@ -5,27 +5,44 @@ public class Sudoku extends LatinSquare{
 	private int iSize;
 	private int iSqrtSize;
 	
-	public Sudoku(int iSize){
-		// Make an exception if size is not a perfect square
-		super();
-		this.iSize = iSize;
+	public Sudoku(int iSize) throws Exception{
+		super();this.iSize = iSize;
+		try {
+			if((Math.sqrt(iSize) - Math.floor(Math.sqrt(iSize)))!=0) {
+				throw new Exception();
+			}
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
 		this.iSqrtSize = (int) Math.sqrt(iSize);
+		
 	}
-	public Sudoku(int[][] puzzle) {
-		// Make an exception if size is not a perfect square
+	public Sudoku(int[][] puzzle) throws Exception{
 		super(puzzle);
 		this.iSize = puzzle.length;
 		this.iSqrtSize = (int) Math.sqrt(iSize);
+		try {
+			if((Math.sqrt(iSize) - Math.floor(Math.sqrt(iSize)))!=0) {
+				throw new Exception();
+			}
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 	public int[][] getPuzzle() {
 		return super.getLatinSquare();
 	}
 	public int[] getRegion(int r) {
 		int[] answer = new int[iSize];
+		
 		int[][] LS= super.getLatinSquare();
 		int lowRow = r-r%iSqrtSize;
 		int lowCol = r % iSqrtSize * iSqrtSize;
-		System.out.println("Starting col = " +lowCol);
 		int i = 0;
 		for(int j = lowRow;j<lowRow+iSqrtSize;j++) {
 			for(int k = lowCol;k<lowCol+iSqrtSize;k++) {
@@ -33,44 +50,37 @@ public class Sudoku extends LatinSquare{
 				i++;
 			}
 		
-		}System.out.println("the array is " +Arrays.toString(answer));
+		}
 		return answer;
 		}
 	public int[] getRegion(int row, int col) {
-		int region = 0;
-		boolean c = true;
-		boolean r = false;
-		int x = 0;
-		int y = 0;
-		int low = 0;
-		int high = iSqrtSize;
-		while(c) {
+		int region = 0;int cCount = 0;int rCount = 0;
+		boolean colSpan = true;boolean rowSpan = false;
+		int low = 0;int high = iSqrtSize;
+		while(colSpan) {
 			if(col>=low && col<high) {
-				System.out.println("Column set Found x= " +x);
 				low = 0;
 				high  = iSqrtSize;
 				while(true) {
 					if(row>=low && row<high) {
-						region = x +y*iSqrtSize;
-						c = false;
-						r = true;
+						region = cCount +rCount*iSqrtSize;
+						colSpan = false;
+						rowSpan = true;
 						break;
 					}
-					y++;
+					rCount++;
 					low+=iSqrtSize;
 					high+=iSqrtSize;
 					
 				}
 			}
-			if(r) {
+			if(rowSpan) {
 				break;
 			}
-			System.out.println("End of first while: X = "+x+ " low = "+low+" high = "+high);
-			x++;
+			cCount++;
 			low+=iSqrtSize;
 			high+=iSqrtSize;
 		}
-		System.out.println("the region is "+region);
 		return getRegion(region);
 		
 	}
