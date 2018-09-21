@@ -11,7 +11,7 @@ public class LatinSquare {
 	 * @since Lab #1
 	 */
 	private int[][] LatinSquare;
-
+	private boolean bIgnoreZero = false;
 	/**
 	 * No-arg constructor, make it public, don't do anything in the constructor
 	 * 
@@ -59,6 +59,14 @@ public class LatinSquare {
 		LatinSquare = latinSquare;
 	}
 
+	protected boolean isbIgnoreZero() {
+		return bIgnoreZero;
+	}
+
+	protected void setbIgnoreZero(boolean bIgnoreZero) {
+		this.bIgnoreZero = bIgnoreZero;
+	}
+
 	/**
 	 * Pass in a one-dimension array, pass back true if there is a duplicate value
 	 * 
@@ -69,19 +77,32 @@ public class LatinSquare {
 	 * @return - returns 'true' if any of the elements are duplicate
 	 */
 	public boolean hasDuplicates(int[] arr) {
-
 		// TODO: Return 'true' if any element in arr is duplicate
-
 		boolean hasDuplicates = false;
 		int[] sortedArray = Arrays.copyOf(arr, arr.length);
 		Arrays.sort(sortedArray);
-
-		for (int i = 0; i < sortedArray.length - 1; i++) {
-			if (sortedArray[i] == sortedArray[i + 1]) {
-				hasDuplicates = true;
-				break;
+		if(!bIgnoreZero) {
+			for (int i = 0; i < sortedArray.length - 1; i++) {
+				if (sortedArray[i] == sortedArray[i + 1]) {
+					hasDuplicates = true;
+					break;
+				}
 			}
 		}
+		else {
+			for(int i = 0;i<sortedArray.length -1; i++) {
+				if(sortedArray[i]==0) {
+					continue;
+				}
+				else {
+					if(sortedArray[i]==sortedArray[i+1]) {
+						hasDuplicates = true;
+						break;
+					}
+				}
+			}
+		}
+
 		return hasDuplicates;
 	}
 

@@ -54,34 +54,47 @@ public class Sudoku extends LatinSquare{
 		return answer;
 		}
 	public int[] getRegion(int row, int col) {
-		int region = 0;int cCount = 0;int rCount = 0;
-		boolean colSpan = true;boolean rowSpan = false;
-		int low = 0;int high = iSqrtSize;
-		while(colSpan) {
-			if(col>=low && col<high) {
-				low = 0;
-				high  = iSqrtSize;
-				while(true) {
-					if(row>=low && row<high) {
-						region = cCount +rCount*iSqrtSize;
-						colSpan = false;
-						rowSpan = true;
-						break;
-					}
-					rCount++;
-					low+=iSqrtSize;
-					high+=iSqrtSize;
-					
-				}
-			}
-			if(rowSpan) {
+		int region = row/iSqrtSize * iSqrtSize + col/iSqrtSize;
+		return getRegion(region);
+		
+	}
+	public boolean isPartialSudoku() {
+		//has all values doesnt work
+		//no isLatinSquare
+		//has no duplicates on row column and region, 
+		//ignore zero, but must have zero
+		//change has duplicates to look for zero, introduce new attribute in LatinSquare "private boolean bIgnoreZero" 
+		//if bIgnoreZero is true we ignore zero
+		//protected boolean isbIgnoreZero, isPartialSudoku sets this to true, isSudoku sets this to false
+		// 
+		boolean pS = true;
+		super.setbIgnoreZero(true);
+		if(!super.ContainsZero()) {
+			pS = false;
+		}
+		for(int i = 0;i<super.getLatinSquare().length;i++) {
+			if(super.hasDuplicates(super.getRow(i))) {
+				pS = false;
 				break;
 			}
-			cCount++;
-			low+=iSqrtSize;
-			high+=iSqrtSize;
 		}
-		return getRegion(region);
+		for(int j = 0; j<super.getLatinSquare().length;j++) {
+			if(super.hasDuplicates(super.getColumn(j))) {
+				pS = false;
+				break;
+			}
+		}
+		for(int k = 0;k<super.getLatinSquare().length;k++) {
+			if(super.hasDuplicates(getRegion(k))) {
+				pS = false;
+				break;
+			}
+		}
+		return pS;
+	}
+	public boolean isSudoku() {
+		boolean answer = true;
+		super.setbIgnoreZero(false);
 		
 	}
 	

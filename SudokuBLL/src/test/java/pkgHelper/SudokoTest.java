@@ -32,8 +32,20 @@ public class SudokoTest {
 		assertArrayEquals(answer,test.getRegion(3, 2));
 		assertArrayEquals(answer2,test.getRegion(3, 3));
 		assertArrayEquals(answer1,test.getRegion(3, 7));
+	}
+	
+	@Test
+	public void IsPartialSudokuTest() throws Exception{
+		int[][] myArray = {{1,2,3,4},{2,3,4,1},{3,4,1,2},{4,1,2,3}};
+		int[][] myArray2 = {{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}};
+		int[][] myArray3 = {{1,4,0,2},{3,2,4,1},{4,1,2,3},{2,3,1,4}};
 
-		
+		Sudoku test1 = new Sudoku(myArray);
+		Sudoku test2 = new Sudoku(myArray2);
+		Sudoku test3 = new Sudoku(myArray3);
+		assertFalse(test1.isPartialSudoku());
+		assertTrue(test2.isPartialSudoku());
+		assertTrue(test3.isPartialSudoku());
 	}
 
 }
