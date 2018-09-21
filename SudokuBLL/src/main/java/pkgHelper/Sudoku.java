@@ -59,7 +59,7 @@ public class Sudoku extends LatinSquare{
 		
 	}
 	public boolean isPartialSudoku() {
-		//has all values doesnt work
+		//has all values doesn't work
 		//no isLatinSquare
 		//has no duplicates on row column and region, 
 		//ignore zero, but must have zero
@@ -95,6 +95,22 @@ public class Sudoku extends LatinSquare{
 	public boolean isSudoku() {
 		boolean answer = true;
 		super.setbIgnoreZero(false);
+		if(!super.isLatinSquare()) {
+			answer = false;
+		}
+		for(int k = 0;k<super.getLatinSquare().length;k++) {
+			if(super.hasDuplicates(getRegion(k))) {
+				answer = false;
+				break;
+			}
+		}
+		for(int j = 0; j<super.getLatinSquare().length;j++) {
+			if(!super.hasAllValues(getRegion(j), super.getRow(1))) {
+				answer = false;
+				break;
+			}
+		}
+		return answer;
 		
 	}
 	
