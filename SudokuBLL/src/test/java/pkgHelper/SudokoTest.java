@@ -62,5 +62,24 @@ public class SudokoTest {
 
 
 	}
+	@Test
+	public void IsValidValueTest() throws Exception{
+		int[][] myArray = {{0,0,5,0,0,0,0,1,0},
+						   {8,0,9,0,1,0,2,0,7},
+						   {0,6,3,0,0,2,0,0,8},	
+						   {0,0,0,2,3,8,0,0,9},
+						   {3,9,0,6,0,4,0,8,5},
+						   {4,0,0,9,5,1,0,0,0},
+						   {9,0,0,8,0,0,5,2,0},
+						   {7,0,6,0,2,0,8,0,3},
+						   {0,2,0,0,0,0,6,0,0}};
+		Sudoku test = new Sudoku(myArray);
+		assertFalse(test.isValidValue(3,1,8));
+		assertFalse(test.isValidValue(1,6,7));
+		assertFalse(test.isValidValue(7,7,5));
+		assertTrue(test.isValidValue(2,0,1));
+		assertTrue(test.isValidValue(7,7,9));
+	}
+
 
 }

@@ -59,14 +59,6 @@ public class Sudoku extends LatinSquare{
 		
 	}
 	public boolean isPartialSudoku() {
-		//has all values doesn't work
-		//no isLatinSquare
-		//has no duplicates on row column and region, 
-		//ignore zero, but must have zero
-		//change has duplicates to look for zero, introduce new attribute in LatinSquare "private boolean bIgnoreZero" 
-		//if bIgnoreZero is true we ignore zero
-		//protected boolean isbIgnoreZero, isPartialSudoku sets this to true, isSudoku sets this to false
-		// 
 		boolean pS = true;
 		super.setbIgnoreZero(true);
 		if(!super.ContainsZero()) {
@@ -113,5 +105,45 @@ public class Sudoku extends LatinSquare{
 		return answer;
 		
 	}
+	public boolean isValidValue(int iRow, int iCol, int iValue) {
+
+		boolean isValidValue = true;
+		
+		//iValue is only valid if between 1 and iSize
+		if (iValue > iSize || iValue < 1) {
+			isValidValue = false;
+			return isValidValue;
+		}
+		
+		//iValue is not valid if the specified location already has an assigned value besides 0
+		if (getRow(iRow)[iCol] >= 1) {
+			isValidValue = false;
+			return isValidValue;
+		}
+		
+		for (int i = 0; i<super.getRow(iRow).length;i++)
+			if (getRow(iRow)[i] == iValue) {
+			isValidValue = false;
+			return isValidValue;
+			}
+			
+		for (int i = 0; i<super.getColumn(iCol).length;i++)
+			if (getColumn(iCol)[i] == iValue) {
+			isValidValue = false;
+			return isValidValue;
+			}
+			
+		for (int i = 0; i<getRegion(iRow, iCol).length;i++)
+			if (getRegion(iRow, iCol)[i] == iValue) {
+			isValidValue = false;
+			return isValidValue;
+			}
+
+
+		return isValidValue;
+
+	}
+
+
 	
 }
